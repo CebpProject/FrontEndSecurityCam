@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en">
-      <body className={inter.className + " bg-background-alt"}>
+      <body className={inter.className}>
       <Navbar /> {/* Include Navbar */}
       {children}
       </body>

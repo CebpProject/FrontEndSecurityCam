@@ -2,7 +2,6 @@
 import Link from 'next/link';
 
 const Navbar = () => {
-
     return (
         <div className="bg-background h-20 w-full border-b-2 flex items-center justify-between p-2">
             <ul className="flex items-center justify-center">
@@ -12,10 +11,8 @@ const Navbar = () => {
                     </Link>
                 </li>
             </ul>
-            <button
-                value={"Enter"}
-                // onClick={}
-                className='bg-background-alt
+            <Link href="/about">
+                <button className='bg-background-alt
                     rounded-md
                     outline-none
                     shadow-[0_3px_0px_0px_rgba(255,255,255)]
@@ -28,10 +25,10 @@ const Navbar = () => {
                     transition duration-[100] ease-in-out
                     p-2
                     '
-            >
-                About Our Team
-            </button>
-
+                >
+                    About Our Team
+                </button>
+            </Link>
         </div>
     );
 };

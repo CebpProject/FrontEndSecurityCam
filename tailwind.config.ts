@@ -23,6 +23,7 @@ const config: Config = {
       'primary': '#e64c4c',
       'secondary': '#ffa785',
       'accent': '#CAA8F5',
+      'accent-dark' : '#A86ED5',
     },
   },
   plugins: [],
