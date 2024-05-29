@@ -41,7 +41,7 @@ const ImageViewer = () => {
                 const width = rows[0].length / 6; // 2 characters for each R, G, B pair
 
                 // Resize factors
-                const resizeFactor = 2; // Change this value to resize the image
+                const resizeFactor = 1; // Change this value to resize the image
 
                 // Calculate new dimensions
                 const newWidth = width * resizeFactor;
@@ -81,9 +81,30 @@ const ImageViewer = () => {
             }
         };
 
-        const interval = setInterval(fetchData, 1000); // Fetch data every second
+        const interval = setInterval(fetchData, 50); // Fetch data every second
         return () => clearInterval(interval); // Cleanup interval on unmount
     }, []);
+
+    const sendOpenSignal = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/openSignal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ open: "true" })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send open signal');
+            }
+
+            const result = await response.json();
+            console.log('Open signal sent successfully:', result);
+        } catch (error) {
+            console.error('Error sending open signal:', error);
+        }
+    };
 
     return (
         <div className="container mx-auto p-4">
@@ -93,6 +114,28 @@ const ImageViewer = () => {
             ) : (
                 <p>Loading...</p>
             )}
+            <button
+                onClick={sendOpenSignal}
+                className="relative bg-accent-dark
+                    rounded-md
+                    outline-none
+                    shadow-[0_3px_0px_0px_rgba(255,255,255)]
+                    font-extrabold
+                    hover:bg-accent
+                    hover:shadow-[0_2px_0px_0px_rgba(255,255,255)]
+                    hover:translate-y-[2px]
+                    active:shadow-none
+                    active:translate-y-[4px]
+                    transition duration-[100] ease-in-out
+                    text-center
+                    justify-center
+                    p-3
+                    pl-12
+                    pr-12
+                    mt-4"
+            >
+                Send Open Signal
+            </button>
         </div>
     );
 };
