@@ -21,6 +21,7 @@ const config: Config = {
       'background': '#1e1e24',
       'background-alt': '#29292f',
       'primary': '#e64c4c',
+      'primary-dark':'#b33939',
       'secondary': '#ffa785',
       'accent': '#CAA8F5',
       'accent-dark' : '#A86ED5',

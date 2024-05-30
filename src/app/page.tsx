@@ -1,6 +1,7 @@
 "use client";
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const HomePage = () => {
     const [tooltip, setTooltip] = useState<string | null>(null);
@@ -46,6 +47,21 @@ const HomePage = () => {
                         opacity: 0;
                     }
                 }
+                @media (max-width: 640px) {
+                    h1 {
+                        font-size: 2rem;
+                        padding: 2rem;
+                    }
+                    .button {
+                        font-size: 1rem;
+                        padding: 1rem 2rem;
+                        margin: 1rem;
+                    }
+                    .tooltip {
+                        font-size: 1.25rem;
+                        padding: 0.5rem;
+                    }
+                }
             `}</style>
             <main className="container mx-auto p-4 bg-background-alt flex-grow">
                 <div className="relative text-center mb-8">
@@ -55,59 +71,64 @@ const HomePage = () => {
                     </h1>
                 </div>
 
-                <div className="text-4xl text-white text-center relative">
-                    <button
-                        className='relative bg-accent-dark
-                    rounded-md
-                    outline-none
-                    shadow-[0_3px_0px_0px_rgba(255,255,255)]
-                    font-extrabold
-                    hover:bg-accent
-                    hover:shadow-[0_2px_0px_0px_rgba(255,255,255)]
-                    hover:translate-y-[2px]
-                    active:shadow-none
-                    active:translate-y-[4px]
-                    transition duration-[100] ease-in-out
-                    text-center
-                    justify-center
-                    p-3
-                    pl-12
-                    pr-12
-                    m-4
-                    '
-                        onMouseEnter={() => setTooltip('Add a new persons photo in the system so they can open the door or remove one so they lose that ability')}
-                        onMouseLeave={() => setTooltip(null)}
-                        // onClick={handleButtonClick}
-                    >
-                        Access Center
-                    </button>
-                    <button
-                        className='relative bg-accent-dark
-                    rounded-md
-                    outline-none
-                    shadow-[0_3px_0px_0px_rgba(255,255,255)]
-                    font-extrabold
-                    hover:bg-accent
-                    hover:shadow-[0_2px_0px_0px_rgba(255,255,255)]
-                    hover:translate-y-[2px]
-                    active:shadow-none
-                    active:translate-y-[4px]
-                    transition duration-[100] ease-in-out
-                    text-center
-                    justify-center
-                    p-3
-                    pl-12
-                    pr-12
-                    m-4'
-                        onMouseEnter={() => setTooltip('View the live feed from the security camera of the door ')}
-                        onMouseLeave={() => setTooltip(null)}
-                        // onClick={handleButtonClick}
-                    >
-                        See Live Feed
-                    </button>
+                <div className="text-center relative mb-2">
+                    <div className="mb-8 mr-8 mt-8">
+                        <Link legacyBehavior={true} href="/register">
+                            <a
+                                className='button relative bg-accent-dark mb-8
+                            rounded-md
+                            outline-none
+                            shadow-[0_3px_0px_0px_rgba(255,255,255)]
+                            font-extrabold
+                            hover:bg-accent
+                            hover:shadow-[0_2px_0px_0px_rgba(255,255,255)]
+                            hover:translate-y-[2px]
+                            active:shadow-none
+                            active:translate-y-[4px]
+                            transition duration-[100] ease-in-out
+                            text-center
+                            justify-center
+                            p-3
+                            pl-12
+                            pr-12
+                            m-4'
+                                onMouseEnter={() => setTooltip('Add a new person\'s photo in the system so they can open the door or remove one so they lose that ability')}
+                                onMouseLeave={() => setTooltip(null)}
+                            >
+                                Access Center
+                            </a>
+                        </Link>
+                    </div>
+                    <div className="mb-8 mt-8 mr-8">
+                        <Link legacyBehavior={true} href="/feed">
+                            <a
+                                className='button relative bg-accent-dark mb-8
+                            rounded-md
+                            outline-none
+                            shadow-[0_3px_0px_0px_rgba(255,255,255)]
+                            font-extrabold
+                            hover:bg-accent
+                            hover:shadow-[0_2px_0px_0px_rgba(255,255,255)]
+                            hover:translate-y-[2px]
+                            active:shadow-none
+                            active:translate-y-[4px]
+                            transition duration-[100] ease-in-out
+                            text-center
+                            justify-center
+                            p-3
+                            pl-12
+                            pr-12
+                            m-4'
+                                onMouseEnter={() => setTooltip('View the live feed from the security camera of the door')}
+                                onMouseLeave={() => setTooltip(null)}
+                            >
+                                See Live Feed
+                            </a>
+                        </Link>
+                    </div>
 
                     {isVisible && (
-                        <div className={`text-2xl absolute top-28 left-1/2 transform -translate-x-1/2 bg-primary text-gray-100 rounded-md p-2 ${tooltip ? 'fade-in' : 'fade-out'}`}>
+                        <div className={`tooltip text-2xl absolute top-28 left-1/2 transform -translate-x-1/2 bg-primary text-gray-100 rounded-md p-2 ${tooltip ? 'fade-in' : 'fade-out'}`}>
                             {tooltip}
                         </div>
                     )}

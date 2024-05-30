@@ -90,17 +90,72 @@ export default function ImageUpload() {
     };
 
     return (
-        <div>
-            <h1>Image Upload</h1>
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            <input type="text" placeholder="Enter Name" value={name} onChange={handleNameChange} />
-            <button onClick={processImage} disabled={!file || !name || processing}>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-background-alt">
+            <h1 className="text-3xl font-bold mb-6">Image Upload</h1>
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="block text-center
+                    border-2
+                    border-white
+                    border-solid
+                    bg-background-alt
+                    font-bold
+                    rounded-md
+                    hover:border-primary
+                    focus:border-primary
+                    transition duration-[100] ease-in-out
+                    mb-4"
+            />
+            <input
+                type="text"
+                placeholder="Enter Name"
+                value={name}
+                onChange={handleNameChange}
+                className="block text-center
+                    border-2
+                    border-white
+                    border-solid
+                    bg-background-alt
+                    font-bold
+                    rounded-md
+                    hover:border-primary
+                    focus:border-primary
+                    transition duration-[100] ease-in-out
+                    mb-4"
+            />
+            <button
+                onClick={processImage}
+                disabled={!file || !name || processing}
+                className={`bg-background-alt
+                    rounded-md
+                    outline-none
+                    shadow-[0_3px_0px_0px_rgba(255,255,255)]
+                    font-extra bold
+                    hover:bg-primary
+                    hover:shadow-[0_2px_0px_0px_rgba(255,255,255)]
+                    hover:translate-y-[2px]
+                    active:shadow-none
+                    active:translate-y-[4px]
+                    transition duration-[100] ease-in-out
+                    text-center
+                    justify-center
+                    p-3
+                    ${processing ? 'bg-gray-400' : 'bg-primary-dark hover:bg-blue-600'}`}
+            >
                 {processing ? 'Processing...' : 'Process Image'}
             </button>
             {processedData && (
-                <div>
-                    <h2>Processed Data</h2>
-                    <textarea value={processedData} rows={10} cols={50} readOnly />
+                <div className="w-full max-w-xs">
+                    <h2 className="text-xl font-bold mb-2">Processed Data</h2>
+                    <textarea
+                        value={processedData}
+                        rows={10}
+                        cols={50}
+                        readOnly
+                        className="w-full p-2 border border-gray-300 bg-background rounded"
+                    />
                 </div>
             )}
         </div>
