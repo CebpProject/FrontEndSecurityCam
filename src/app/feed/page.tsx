@@ -25,7 +25,7 @@ const ImageViewer = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/unprocesedImageInput');
+                const response = await fetch('http://192.168.0.197:8080/api/unprocesedImageInput');
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
@@ -87,7 +87,7 @@ const ImageViewer = () => {
 
     const sendOpenSignal = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/openSignal', {
+            const response = await fetch('http://192.168.0.197:8080/api/openSignal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

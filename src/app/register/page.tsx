@@ -67,7 +67,7 @@ export default function ImageUpload() {
 
     const sendDataToAPI = async (data: string) => {
         try {
-            const response = await fetch('http://localhost:8080/api/groundTruthPhotos', {
+            const response = await fetch('http://192.168.0.197:8080/api/groundTruthPhotos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
