@@ -67,7 +67,13 @@ export default function ImageUpload() {
 
     const sendDataToAPI = async (data: string) => {
         try {
-            const response = await fetch('https://50.17.118.62:8080/api/groundTruthPhotos', {
+            console.log(name)
+            console.log(JSON.stringify({
+                id: 0,
+                photoList: data,
+                name: name,
+            }))
+            const response = await fetch('http://localhost:8080/api/groundTruthPhotos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +84,6 @@ export default function ImageUpload() {
                     name: name,
                 }),
             });
-
             if (!response.ok) {
                 throw new Error('Failed to send data to API');
             }
