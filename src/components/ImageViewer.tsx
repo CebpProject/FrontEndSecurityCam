@@ -24,7 +24,7 @@ const hexStringToByteArray = (hexString: string): number[] => {
 
 const ImageViewer: React.FC<ImageViewerProps> = ({ doorId, imageData }) => {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-    const [doorToOpen, setDoorToOpen] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const processImage = () => {
@@ -65,41 +65,26 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ doorId, imageData }) => {
     }, [imageData]);
 
     const sendOpenSignal = async () => {
+        setIsLoading(true);
         try {
             const response = await fetch('http://localhost:8080/api/openSignal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ open: "true", doorId })
+                body: JSON.stringify({ doorId: parseInt(doorId), open: true })
             });
             if (!response.ok) {
                 throw new Error('Failed to send open signal');
             }
             const result = await response.json();
             console.log('Open signal sent successfully:', result);
+            alert(`Open signal sent for Door ${doorId}`);
         } catch (error) {
             console.error('Error sending open signal:', error);
-        }
-    };
-
-    const sendDoorToOpen = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/api/doors/door-to-open', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ doorId: parseInt(doorToOpen) })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to send door to open');
-            }
-            const result = await response.json();
-            console.log('Door to open sent successfully:', result);
-            setDoorToOpen('');
-        } catch (error) {
-            console.error('Error sending door to open:', error);
+            alert(`Failed to send open signal for Door ${doorId}. Please try again.`);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -112,21 +97,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ doorId, imageData }) => {
                 <p>Loading...</p>
             )}
             <div className="flex space-x-4 mb-4">
-                <button onClick={sendOpenSignal} className="relative bg-accent-dark rounded-md outline-none shadow-[0_3px_0px_0px_rgba(255,255,255)] font-extrabold hover:bg-accent hover:shadow-[0_2px_0px_0px_rgba(255,255,255)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition duration-[100] ease-in-out text-center justify-center p-3 pl-12 pr-12">
-                    Send Open Signal
+                <button
+                    onClick={sendOpenSignal}
+                    disabled={isLoading}
+                    className={`relative bg-accent-dark rounded-md outline-none shadow-[0_3px_0px_0px_rgba(255,255,255)] font-extrabold hover:bg-accent hover:shadow-[0_2px_0px_0px_rgba(255,255,255)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition duration-[100] ease-in-out text-center justify-center p-3 pl-12 pr-12 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                    {isLoading ? 'Sending...' : 'Send Open Signal'}
                 </button>
-                <div className="flex items-center space-x-2">
-                    <input
-                        type="number"
-                        value={doorToOpen}
-                        onChange={(e) => setDoorToOpen(e.target.value)}
-                        placeholder="Enter door ID"
-                        className="p-2 border rounded"
-                    />
-                    <button onClick={sendDoorToOpen} className="relative bg-accent-dark rounded-md outline-none shadow-[0_3px_0px_0px_rgba(255,255,255)] font-extrabold hover:bg-accent hover:shadow-[0_2px_0px_0px_rgba(255,255,255)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition duration-[100] ease-in-out text-center justify-center p-3">
-                        Open Door
-                    </button>
-                </div>
             </div>
         </div>
     );
